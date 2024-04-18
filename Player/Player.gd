@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-const FRICTION = 500
-const ACCELERATION = 1000
-const ROLL_SPEED = 105
-const MAX_SPEED = 100
+@export var FRICTION = 500
+@export var ACCELERATION = 1000
+@export var ROLL_SPEED = 105
+@export var MAX_SPEED = 100
 
 enum {
 	MOVE,
@@ -12,11 +12,18 @@ enum {
 }
 
 var state = MOVE
-var roll_vector = Vector2.LEFT
+var roll_vector = Vector2.DOWN
+var stats = PlayerStats
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var animationTree = $AnimationTree
 @onready var animationState = animationTree.get("parameters/playback")
+@onready var swordHitbox = $HitboxPivot/SwordHitbox
+@onready var hurtbox = $Hurtbox
+
+func _ready():
+	swordHitbox.knockback_vector = roll_vector
+	self.stats.connect("no_health", queue_free)
 
 func _physics_process(delta):
 	match state:
@@ -37,6 +44,7 @@ func move_state(delta):
 	
 	if input_vector != Vector2.ZERO:
 		roll_vector = input_vector
+		swordHitbox.knockback_vector = input_vector
 		animationTree.set("parameters/Idle/blend_position", input_vector)
 		animationTree.set("parameters/Run/blend_position", input_vector)
 		animationTree.set("parameters/Attack/blend_position", input_vector)
@@ -70,3 +78,9 @@ func roll_animation_finished():
 
 func attack_animation_finished():
 	state = MOVE
+
+func _on_hurtbox_area_entered(area):
+	stats.health -= 1
+	hurtbox.start_invincibility(0.5)
+	hurtbox.create_hitEffect()
+	
