@@ -19,6 +19,7 @@ enum {
 @onready var hurtbox = $Hurtbox
 @onready var softCollision = $SoftCollision
 @onready var wandererController = $WandererController
+@onready var animationPlayer = $AnimationPlayer
 
 var state = IDLE
 
@@ -80,9 +81,9 @@ func pick_random_state(state_list):
 
 func _on_hurtbox_area_entered(area):
 	stats.health -= area.damage
-	print(stats.health)
 	velocity = area.knockback_vector * 120
 	hurtbox.create_hitEffect()
+	hurtbox.start_invincibility(0.4)
 
 
 func _on_stats_no_health():
@@ -90,3 +91,10 @@ func _on_stats_no_health():
 	var enemyDeathEffect = EnemyDeathEffect.instantiate()
 	get_parent().add_child(enemyDeathEffect)
 	enemyDeathEffect.global_position = global_position
+
+
+func _on_hurtbox_invincibility_started():
+	animationPlayer.play("Start")
+
+func _on_hurtbox_invincibility_ended():
+	animationPlayer.play("Stop")
