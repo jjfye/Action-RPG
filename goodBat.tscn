@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://bphdmcpvwjm1n"]
+
+[ext_resource type="Script" path="res://GoodBat.gd" id="1_afx4k"]
+[ext_resource type="Texture2D" uid="uid://b0xvs30085783" path="res://Shadows/SmallShadow.png" id="2_d31qi"]
+[ext_resource type="Shader" path="res://Player/WhiteColour.gdshader" id="3_6hwot"]
+[ext_resource type="Texture2D" uid="uid://ddspa6vmgnnqk" path="res://Enemies/Bat.png" id="4_25mvy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_crw2l"]
+resource_local_to_scene = true
+shader = ExtResource("3_6hwot")
+shader_parameter/active = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrcbo"]
+atlas = ExtResource("4_25mvy")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7l5q"]
+atlas = ExtResource("4_25mvy")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vxjn"]
+atlas = ExtResource("4_25mvy")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4dx"]
+atlas = ExtResource("4_25mvy")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmg31"]
+atlas = ExtResource("4_25mvy")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bahyy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrcbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7l5q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vxjn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya4dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmg31")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 10.0
+}]
+
+[node name="Bat" type="CharacterBody2D"]
+collision_mask = 4
+script = ExtResource("1_afx4k")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_d31qi")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_crw2l")
+sprite_frames = SubResource("SpriteFrames_bahyy")
+animation = &"Fly"
+autoplay = "Fly"
+frame = 2
+frame_progress = 0.422295
+offset = Vector2(0, -12)

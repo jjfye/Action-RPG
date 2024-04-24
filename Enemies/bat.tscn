@@ -75,6 +75,9 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_v4clh"]
 radius = 5.0
 
+[sub_resource type="Animation" id="Animation_8fqvl"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_5rq40"]
 resource_name = "Start"
 length = 0.2
@@ -107,9 +110,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
-
-[sub_resource type="Animation" id="Animation_8fqvl"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k336n"]
 _data = {

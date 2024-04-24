@@ -10,12 +10,17 @@ const PlayerHurtSound = preload("res://Player/player_hurt_sound.tscn")
 enum {
 	MOVE,
 	ROLL,
-	ATTACK
+	ATTACK,
+	PAUSE
 }
 
 var state = MOVE
 var roll_vector = Vector2.DOWN
 var stats = PlayerStats
+var goodBat_in_range = false
+var in_item_detection = false
+var item_detected = false
+var actionable = Actionable
 
 @onready var animationPlayer = $AnimationPlayer
 @onready var animationTree = $AnimationTree
@@ -23,10 +28,13 @@ var stats = PlayerStats
 @onready var swordHitbox = $HitboxPivot/SwordHitbox
 @onready var hurtbox = $Hurtbox
 @onready var blinkAnimationPlayer = $BlinkAnimationPlayer
+@onready var actionable_finder: Area2D = $ActionableFinder
+
 
 func _ready():
 	swordHitbox.knockback_vector = roll_vector
 	self.stats.connect("no_health", queue_free)
+	DialogueManager.connect("dialogue_ended", dialogue_exited)
 
 func _physics_process(delta):
 	match state:
@@ -38,7 +46,9 @@ func _physics_process(delta):
 		
 		ATTACK:
 			attack_state(delta)
-
+		PAUSE:
+			pass
+			
 func move_state(delta):
 	var input_vector = Vector2.ZERO
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -75,6 +85,15 @@ func attack_state(_delta):
 	velocity = Vector2.ZERO
 	animationState.travel("Attack")
 
+func _unhandled_input(_event: InputEvent):
+	if Input.is_action_just_pressed("ui_accept"):
+		var actionables = actionable_finder.get_overlapping_areas()
+		if actionables.size() > 0:
+			actionables[0].action()
+			if item_detected:
+				State.item_found = true
+			return
+
 func roll_animation_finished():
 	velocity = Vector2.ZERO
 	state = MOVE
@@ -94,3 +113,12 @@ func _on_hurtbox_invincibility_started():
 	
 func _on_hurtbox_invincibility_ended():
 	blinkAnimationPlayer.play("Stop")
+	
+func dialogue_exited():
+	state = MOVE
+
+func _on_actionable_item_area_entered(area):
+	item_detected = true
+
+func _on_actionable_item_area_exited(area):
+	item_detected = false

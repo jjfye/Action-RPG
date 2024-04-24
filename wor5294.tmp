@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwm80a3gw54mb"]
+[gd_scene load_steps=22 format=3 uid="uid://bwm80a3gw54mb"]
 
 [ext_resource type="Texture2D" uid="uid://lstdytatfuyb" path="res://World/GrassBackground.png" id="1_kttq8"]
 [ext_resource type="Texture2D" uid="uid://dfs25bu8becb" path="res://World/DirtTileset.png" id="2_113jk"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c8pjyot3ujxur" path="res://actionable.tscn" id="12_e7vc5"]
 [ext_resource type="Resource" uid="uid://f8j0v640et2a" path="res://goodBat.dialogue" id="13_8p3p3"]
 [ext_resource type="Script" path="res://Item.gd" id="13_bw3pm"]
-[ext_resource type="PackedScene" uid="uid://dah5gtb8pirfy" path="res://door.tscn" id="15_7r6v1"]
+[ext_resource type="Script" path="res://Area2D.gd" id="15_vqmxn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p5w0v"]
 texture = ExtResource("2_113jk")
@@ -408,6 +408,9 @@ radius = 8.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_itsfk"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8xbk0"]
+radius = 24.0
+
 [node name="World" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -565,7 +568,14 @@ dialogue_start = "pick_item"
 position = Vector2(-80, 232)
 shape = SubResource("CircleShape2D_itsfk")
 
-[node name="Door" parent="YSORT" instance=ExtResource("15_7r6v1")]
+[node name="Door" type="Area2D" parent="YSORT"]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("15_vqmxn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSORT/Door"]
+position = Vector2(-80, -40)
+shape = SubResource("CircleShape2D_8xbk0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -577,5 +587,7 @@ offset_bottom = 20.0
 
 [connection signal="area_entered" from="YSORT/Item/ActionableItem" to="YSORT/Player" method="_on_actionable_item_area_entered"]
 [connection signal="area_exited" from="YSORT/Item/ActionableItem" to="YSORT/Player" method="_on_actionable_item_area_exited"]
+[connection signal="area_entered" from="YSORT/Door" to="YSORT/Door" method="_on_area_entered"]
+[connection signal="area_exited" from="YSORT/Door" to="YSORT/Door" method="_on_area_exited"]
 
 [editable path="Camera2D"]

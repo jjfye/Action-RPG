@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7gb1824bxdrh"]
+
+[ext_resource type="PackedScene" uid="uid://blmrkdcrrs8j1" path="res://dirt_clith_tile_map.tscn" id="1_vu744"]
+[ext_resource type="Texture2D" uid="uid://lstdytatfuyb" path="res://World/GrassBackground.png" id="2_ujec0"]
+[ext_resource type="PackedScene" uid="uid://b3wek4834f635" path="res://Player/player.tscn" id="3_jbiaf"]
+[ext_resource type="PackedScene" uid="uid://dah5gtb8pirfy" path="res://door.tscn" id="4_t8jvh"]
+[ext_resource type="Script" path="res://door2.gd" id="5_yogb5"]
+
+[node name="World2" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(159, 90)
+texture = ExtResource("2_ujec0")
+region_enabled = true
+region_rect = Rect2(0, 0, 624, 408)
+
+[node name="DirtClithTileMap" parent="." instance=ExtResource("1_vu744")]
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 327680, 0, 2, 65536, 3, 3, 393216, 0, 4, 131072, 0, 65537, 131072, 1, 65536, 0, 1, 131072, 0, 2, 131073, 131072, 2, 65539, 0, 1, 131075, 0, 2, 65540, 131072, 1, 131076, 131072, 2)
+
+[node name="Player" parent="." instance=ExtResource("3_jbiaf")]
+position = Vector2(76, 55)
+
+[node name="Door" parent="." instance=ExtResource("4_t8jvh")]
+position = Vector2(158, 82)
+script = ExtResource("5_yogb5")
+
+[node name="CollisionShape2D" parent="Door" index="0"]
+position = Vector2(-78, -46)
+
+[editable path="Door"]

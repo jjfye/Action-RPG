@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dah5gtb8pirfy"]
+
+[ext_resource type="Script" path="res://Area2D.gd" id="1_2glab"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8xbk0"]
+radius = 24.0
+
+[node name="Door" type="Area2D"]
+collision_layer = 512
+collision_mask = 512
+script = ExtResource("1_2glab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-80, -40)
+shape = SubResource("CircleShape2D_8xbk0")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

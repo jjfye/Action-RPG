@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://b3wek4834f635"]
+[gd_scene load_steps=65 format=3 uid="uid://b3wek4834f635"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_i3pea"]
 [ext_resource type="Texture2D" uid="uid://cnttjrxtggto4" path="res://Player/Player.png" id="2_4ijdh"]
@@ -798,9 +798,6 @@ graph_offset = Vector2(-39, -51)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e45pg"]
 radius = 11.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6ma22"]
-radius = 14.0357
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ky8a8"]
 radius = 6.0
 height = 24.0
@@ -915,14 +912,6 @@ position = Vector2(1, -5)
 shape = SubResource("CapsuleShape2D_e45pg")
 disabled = true
 
-[node name="DoorBox" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 512
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBox"]
-position = Vector2(0, -8)
-shape = SubResource("CircleShape2D_6ma22")
-
 [node name="Hurtbox" parent="." instance=ExtResource("5_w50op")]
 position = Vector2(1, 0)
 collision_mask = 64
@@ -952,9 +941,7 @@ libraries = {
 [connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_hurtbox_invincibility_ended"]
 [connection signal="invincibility_started" from="Hurtbox" to="." method="_on_hurtbox_invincibility_started"]
 [connection signal="body_entered" from="ActionableFinder" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_entered" from="ActionableFinder" to="ActionableFinder" method="_on_body_entered"]
 [connection signal="body_exited" from="ActionableFinder" to="." method="_on_detection_area_body_exited"]
-[connection signal="body_exited" from="ActionableFinder" to="ActionableFinder" method="_on_body_exited"]
 
 [editable path="HitboxPivot/SwordHitbox"]
 [editable path="Hurtbox"]

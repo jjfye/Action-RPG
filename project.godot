@@ -18,6 +18,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerStats="*res://Player/player_stats.tscn"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+State="*res://state.gd"
+Actionable="*res://actionable.tscn"
+
+[dialogue_manager]
+
+general/states=["Player", "State"]
+general/custom_test_scene_path="res://test_dialogue.tscn"
+general/balloon_path="res://Dialogue Balloon/balloon.tscn"
 
 [display]
 
@@ -27,6 +36,10 @@ window/size/resizable=false
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [importer_defaults]
 
@@ -105,6 +118,10 @@ run={
 ]
 }
 
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://goodBat.dialogue")
+
 [layer_names]
 
 2d_physics/layer_1="World"
@@ -115,6 +132,7 @@ run={
 2d_physics/layer_6="Enemy"
 2d_physics/layer_7="EnemyHitBox"
 2d_physics/layer_8="SoftCollisions"
+2d_physics/layer_9="Actionable"
 
 [rendering]
 

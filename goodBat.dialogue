@@ -1,0 +1,25 @@
+~ start
+
+Good Bat: [[Hi|Hello|Wassup]]... How may I help you?
+- Who are you?
+	Good Bat: just a civilized bat innit blud
+
+if item_status == "has":
+	- I think this is yours?
+	Good Bat: Oh?
+	- Ye, this is yours dawg
+		Good Bat: daymn dawg thank u!
+		set item_status = "gave"
+else:
+	Good Bat: man im starving T_T
+
+if item_status == "gave":
+	Good Bat: yUMMMMM APPLE!!
+
+=> END
+
+~ pick_item
+
+Me: Yo it's a heart nais 1 kida
+Me: gon give tis bat some lyfe innit
+set item_status = "has"

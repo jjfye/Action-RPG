@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8pjyot3ujxur"]
+
+[ext_resource type="Script" path="res://actionable.gd" id="1_p75pv"]
+
+[node name="Actionable" type="Area2D"]
+collision_layer = 256
+collision_mask = 0
+script = ExtResource("1_p75pv")

@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_11"
+type="Resource"
+uid="uid://f8j0v640et2a"
+path="res://.godot/imported/goodBat.dialogue-34f4786c106637ab8415240753a7647f.tres"
+
+[deps]
+
+source_file="res://goodBat.dialogue"
+dest_files=["res://.godot/imported/goodBat.dialogue-34f4786c106637ab8415240753a7647f.tres"]
+
+[params]
+
+defaults=true
